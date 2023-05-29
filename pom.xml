@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>io.openliberty.tools</groupId>
+        <artifactId>liberty-maven-app-parent</artifactId>
+        <version>3.6</version>
+    </parent>
+    
+    <groupId>io.openliberty.guides</groupId>
+    <artifactId>scuola-liberty</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Sample EAR Project</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <hsqldb.version>2.3.3</hsqldb.version>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+   
+
+    <profiles>
+    <profile>
+      <id>generate-mybatis-sources</id>
+      <activation />
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-mybatis-sources</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>generate</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+              <outputDirectory>${basedir}/src/main/java</outputDirectory>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+    
+    <modules>
+    	<module>scuola-liberty-mybatis</module>
+        <module>scuola-liberty-ejb</module>
+       <!-- <module>scuola-liberty-war</module>  -->      
+    	<module>scuola-liberty-rest</module>    	
+    	<module>scuola-liberty-ear</module>
+    </modules>
+    
+    
+   <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
